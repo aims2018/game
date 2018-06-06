@@ -25,14 +25,14 @@ public class Game extends JFrame implements ActionListener {
 	}
 	
 	public String getWord() {
-		return("Implements");
+		return(Words.getWord());
 	}
 	
 	
 	public Game(String title) {
 		super(title);
 		
-		word = getWord().toUpperCase();
+		word = getWord();
 		
 		char[] characters = word.toCharArray();
 		
