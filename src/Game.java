@@ -24,16 +24,38 @@ public class Game extends JFrame implements ActionListener {
 		return(input);
 	}
 	
+	public String getWord() {
+		return("Implements");
+	}
+	
 	
 	public Game(String title) {
 		super(title);
+		
+		word = getWord().toUpperCase();
+		
+		char[] characters = word.toCharArray();
+		
+		characters = scramble(characters);
+		
+		buttons = new JButton[characters.length];
+		
+		setLayout(new FlowLayout());
+		
+		for (int counter=0;counter<buttons.length;counter++) {
+			buttons[counter] = new JButton("" + characters[counter]);
+			
+			buttons[counter].addActionListener(this);
+			
+			add(buttons[counter]);
+		}
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         Game game = new Game("Unscramble");
 		
-		game.setSize(400,400);
+		game.setSize(800,400);
 		game.setLocationRelativeTo(null);
 		game.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		game.setVisible(true);
