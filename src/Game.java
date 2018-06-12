@@ -5,6 +5,8 @@ public class Game extends JFrame implements ActionListener {
 	public JButton[] buttons;
 	public String candidate;
 	public String word;
+	public JButton first;
+	public String message;
 	
 	public char[] scramble(char[] input) {
 		for (int counter=0;counter<100;counter++) {
@@ -34,6 +36,8 @@ public class Game extends JFrame implements ActionListener {
 		
 		word = getWord();
 		
+		System.out.println(word);
+		
 		char[] characters = word.toCharArray();
 		
 		characters = scramble(characters);
@@ -49,6 +53,18 @@ public class Game extends JFrame implements ActionListener {
 			
 			add(buttons[counter]);
 		}
+		
+		message = "Incorrect";
+	}
+	
+	public void paint(Graphics g) {
+		super.paint(g);
+		
+		g.setColor(new Color(37,181,92));
+		
+		g.setFont(new Font("Comic Sans MS",Font.BOLD,20));
+		
+		g.drawString(message, 40, 200);
 	}
 
 	public static void main(String[] args) {
@@ -65,6 +81,28 @@ public class Game extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
+		if (first == null)
+			first = (JButton)arg0.getSource();
+		else {
+			JButton second = (JButton)arg0.getSource();
+			
+			String temp = first.getText();
+			first.setText(second.getText());
+			second.setText(temp);
+			
+			first = null;
+			
+			candidate = "";
+			
+			for(int counter=0;counter<buttons.length;counter++) {
+				candidate += buttons[counter].getText();
+			}
+			if (candidate.equalsIgnoreCase(word)) {
+				message = "Correct";
+				
+				repaint();
+			}
+		}
 	}
 
 }
